@@ -1,0 +1,23 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/user/Desktop/HW_SYN_LAB_I_2110363_Final_Project/final_project_640_480/final_project_640_480.gen/sources_1/ip/blk_mem_gen_0/sim/blk_mem_gen_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module blk_mem_gen_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/user/Desktop/HW_SYN_LAB_I_2110363_Final_Project/final_project_640_480/final_project_640_480.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_clk_wiz.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clk_wiz_0_clk_wiz
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/user/Desktop/HW_SYN_LAB_I_2110363_Final_Project/final_project_640_480/final_project_640_480.gen/sources_1/ip/clk_wiz_0/clk_wiz_0.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clk_wiz_0
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/user/Desktop/HW_SYN_LAB_I_2110363_Final_Project/final_project_640_480/final_project_640_480.srcs/sources_1/imports/project_640_480/display_scaler.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module display_scaler
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/user/Desktop/HW_SYN_LAB_I_2110363_Final_Project/final_project_640_480/final_project_640_480.srcs/sources_1/imports/project_640_480/filter_engine.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module filter_engine
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/user/Desktop/HW_SYN_LAB_I_2110363_Final_Project/final_project_640_480/final_project_640_480.srcs/sources_1/imports/project_640_480/ov7670_capture.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ov7670_capture
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/user/Desktop/HW_SYN_LAB_I_2110363_Final_Project/final_project_640_480/final_project_640_480.srcs/sources_1/imports/project_640_480/sccb_master.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module sccb_master
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/user/Desktop/HW_SYN_LAB_I_2110363_Final_Project/final_project_640_480/final_project_640_480.srcs/sources_1/imports/project_640_480/top_module.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top_module
+WARNING: [VRFC 10-9336] redeclaration of ANSI port 'init_ready' is not allowed [C:/Users/user/Desktop/HW_SYN_LAB_I_2110363_Final_Project/final_project_640_480/final_project_640_480.srcs/sources_1/imports/project_640_480/top_module.v:29]
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/user/Desktop/HW_SYN_LAB_I_2110363_Final_Project/final_project_640_480/final_project_640_480.srcs/sources_1/imports/project_640_480/vga_controller.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module vga_controller
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/user/Downloads/project_2/top_module_tb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module top_module_tb
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/user/Desktop/HW_SYN_LAB_I_2110363_Final_Project/final_project_640_480/final_project_640_480.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl

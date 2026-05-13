@@ -1,0 +1,18 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  --include "D:/Xilinx/2025.2/Vivado/data/rsb/busdef" --include "../../../../final_project_640_480.ip_user_files/ipstatic" \
+"../../../../final_project_640_480.gen/sources_1/ip/blk_mem_gen_0/sim/blk_mem_gen_0.v" \
+"../../../../final_project_640_480.gen/sources_1/ip/clk_wiz_0/clk_wiz_0_clk_wiz.v" \
+"../../../../final_project_640_480.gen/sources_1/ip/clk_wiz_0/clk_wiz_0.v" \
+"../../../../final_project_640_480.srcs/sources_1/imports/project_640_480/display_scaler.v" \
+"../../../../final_project_640_480.srcs/sources_1/imports/project_640_480/filter_engine.v" \
+"../../../../final_project_640_480.srcs/sources_1/imports/project_640_480/ov7670_capture.v" \
+"../../../../final_project_640_480.srcs/sources_1/imports/project_640_480/sccb_master.v" \
+"../../../../final_project_640_480.srcs/sources_1/imports/project_640_480/top_module.v" \
+"../../../../final_project_640_480.srcs/sources_1/imports/project_640_480/vga_controller.v" \
+"../../../../../../../Downloads/project_2/top_module_tb.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
