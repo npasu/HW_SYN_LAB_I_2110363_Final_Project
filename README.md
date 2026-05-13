@@ -7,16 +7,16 @@ This project implements a realtime video processing system on the Basys 3 FPGA b
 - Clock Management : Utilizes the Clocking Wizard IP to generate synchronized frequencies.
 - Camera Interface
   - SCCB Master : Camera Configuration
-  - OV7670 Capture: 'VSYNC' and 'HREF' signals detection
+  - OV7670 Capture : 'VSYNC' and 'HREF' signals detection
 - Memory System : True Dual-Port BRAM
 - Processing & Display : 320x240 and 640x480 versions
   - VGA Controller : Generates standard sync signals.
   - Filter Engine : Applies real-time image effects.
-    - 'SW0' → Grayscale filter
-    - 'SW1' → Blue channel only filter
-    - 'SW2' → Green channel only filter
-    - 'SW3' → Red channel only filter
-    - 'SW0'+'SW1'+'SW2'+'SW3' → Color invertion filter
+    - `SW0` → Grayscale filter
+    - `SW1` → Blue channel only filter
+    - `SW2` → Green channel only filter
+    - `SW3` → Red channel only filter
+    - `SW0`+`SW1`+`SW2`+`SW3` → Color invertion filter
 
 ## Source Code
 - 320px version → [final_project_320_240](./final_project_320_240/final_project_320_240.srcs)
