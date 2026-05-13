@@ -7,7 +7,7 @@ This project implements a realtime video processing system on the Basys 3 FPGA b
 - Clock Management : Utilizes the Clocking Wizard IP to generate synchronized frequencies.
 - Camera Interface
   - SCCB Master : Camera Configuration
-  - OV7670 Capture : 'VSYNC' and 'HREF' signals detection
+  - OV7670 Capture : `VSYNC` and `HREF` signals detection
 - Memory System : True Dual-Port BRAM
 - Processing & Display : 320x240 and 640x480 versions
   - VGA Controller : Generates standard sync signals.
