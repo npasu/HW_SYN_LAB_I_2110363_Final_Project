@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 19:35:11 GMT 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Tue May 12 01:28:22 2026
+# Process ID         : 30668
+# Current directory  : C:/Users/npas/temp/project_2/project_2.runs/blk_mem_gen_0_synth_1
+# Command line       : vivado.exe -log blk_mem_gen_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source blk_mem_gen_0.tcl
+# Log file           : C:/Users/npas/temp/project_2/project_2.runs/blk_mem_gen_0_synth_1/blk_mem_gen_0.vds
+# Journal file       : C:/Users/npas/temp/project_2/project_2.runs/blk_mem_gen_0_synth_1\vivado.jou
+# Running On         : DESKTOP-0KGRA1B
+# Platform           : Windows Server 2016 or Windows 10
+# Operating System   : 26200
+# Processor Detail   : 13th Gen Intel(R) Core(TM) i7-13620H
+# CPU Frequency      : 2918 MHz
+# CPU Physical cores : 10
+# CPU Logical cores  : 16
+# Host memory        : 16869 MB
+# Swap memory        : 10225 MB
+# Total Virtual      : 27094 MB
+# Available Virtual  : 4872 MB
+#-----------------------------------------------------------
+source blk_mem_gen_0.tcl -notrace
