@@ -16,7 +16,7 @@ This project implements a realtime video processing system on the Basys 3 FPGA b
     - 'SW1' → Blue channel only filter
     - 'SW2' → Green channel only filter
     - 'SW3' → Red channel only filter
-    - 'SW4' → Color invertion filter
+    - 'SW0'+'SW1'+'SW2'+'SW3' → Color invertion filter
 
 ## Source Code
 - 320px version → [final_project_320_240](./final_project_320_240/final_project_320_240.srcs)
