@@ -34,99 +34,163 @@ module sccb_master (
     always @(*) begin
         case (rom_addr)
 
-            // 1. Soft Reset : Resets all camera registers to default
+            // =================================================================
+            // 1. Soft Reset
+            // =================================================================
+            // Reg 12 (COM7) = 0x80 -> Clear all registers to defaults and reset internal FSMs
             0  : rom_data = 16'h1280;
 
-            // 2. Clocking & PLL : Sets internal camera speeds
+            // =================================================================
+            // 2. Clocking & PLL (Internal Camera Speeds)
+            // =================================================================
+            // Reg 11 (CLKRC) = 0x00 -> Internal clock pre-scaler divide-by-1 (Direct external clock)
             1  : rom_data = 16'h1100;
+            // Reg 6B (DBLV)  = 0x4A -> Enable PLL (x4 clock multiplier) and bypass internal regulator
             2  : rom_data = 16'h6B4A;
+            // Reg 3B (COM11) = 0x0A -> Enable night mode, allowing frame rate to auto-drop in low light
             3  : rom_data = 16'h3B0A;
 
-            // 3. Format & Scaling : Sets output to RGB and specific resolutions
+            // =================================================================
+            // 3. Format & Scaling (Output Formats & Resolution)
+            // =================================================================
+            // Reg 12 (COM7)  = 0x04 -> Change digital output format to RGB processing
             4  : rom_data = 16'h1204;
+            // Reg 40 (COM15) = 0xD0 -> Select normal digital output range [00 to FF] and format as RGB565
             5  : rom_data = 16'h40D0;
+            // Reg 3A (TSLB)  = 0x04 -> Initialize line sequence windowing and UV auto-balancing
             6  : rom_data = 16'h3A04;
-
+            // Reg 0C (COM3)  = 0x00 -> Output single frame mode, disable scale tracking features
             7  : rom_data = 16'h0C00;
+            // Reg 3E (COM14) = 0x00 -> Disable manual pixel clock scaling dividers
             8  : rom_data = 16'h3E00;
-
+            // Reg 70 (SCALING_XSC)   = 0x3A -> Horizontal scaling test pattern row ratio calculation
             9  : rom_data = 16'h703A;
+            // Reg 71 (SCALING_YSC)   = 0x35 -> Vertical scaling test pattern column ratio calculation
             10 : rom_data = 16'h7135;
+            // Reg 72 (SCALING_DCWCTR)= 0x11 -> Downsampling Control (Downsample digital array by 2)
             11 : rom_data = 16'h7211;
+            // Reg 73 (SCALING_PCLK_DIV)  = 0xF1 -> Divide Pixel Clock (PCLK) by 2 for scaling synchronization
             12 : rom_data = 16'h73F1;
+            // Reg A2 (SCALING_PCLK_DELAY)= 0x02 -> Slew delay output pixel clock to match data valid setup time
             13 : rom_data = 16'hA202;
 
-            // 4. Windowing : Defines the visible area of the sensor
+            // =================================================================
+            // 4. Windowing (Defines Visible Sensor Array Coordinates)
+            // =================================================================
+            // Reg 17 (HSTART) = 0x13 -> Horizontal sensor window start position (MSB 8 bits)
             14 : rom_data = 16'h1713;
+            // Reg 18 (HSTOP)  = 0x01 -> Horizontal sensor window end position (MSB 8 bits)
             15 : rom_data = 16'h1801;
+            // Reg 32 (HREF)   = 0xBF -> Horizontal edge control details (fractional alignment LSB bits)
             16 : rom_data = 16'h32BF;
-
+            // Reg 19 (VSTART) = 0x02 -> Vertical sensor window start position (MSB 8 bits)
             17 : rom_data = 16'h1902;
+            // Reg 1A (VSTOP)  = 0x7A -> Vertical sensor window end position (MSB 8 bits)
             18 : rom_data = 16'h1A7A;
+            // Reg 03 (VREF)   = 0x0A -> Vertical edge control details (fractional alignment LSB bits)
             19 : rom_data = 16'h030A;
 
-            // 5. Color Matrix : Adjusts how colors are calculated
-            20 : rom_data = 16'h4F8A;
-            21 : rom_data = 16'h5075;
-            22 : rom_data = 16'h5100;
-            23 : rom_data = 16'h5215;
-            24 : rom_data = 16'h539C;
-            25 : rom_data = 16'h54D4;
+            // =================================================================
+            // 5. Color Matrix (RGB Calculation / Tint adjustments)
+            // =================================================================
+            // Reg 4F to 54 define the color correction matrix multipliers (MTX1 to MTX6)
+            20 : rom_data = 16'h4F8A; // MTX1 - Red gain matrix multiplier coefficient
+            21 : rom_data = 16'h5075; // MTX2 - Green gain matrix multiplier coefficient
+            22 : rom_data = 16'h5100; // MTX3 - Blue gain matrix multiplier coefficient
+            23 : rom_data = 16'h5215; // MTX4 - Color space balance parameter
+            24 : rom_data = 16'h539C; // MTX5 - Color space balance parameter
+            25 : rom_data = 16'h54D4; // MTX6 - Color space balance parameter
+            // Reg 58 (MTXS)   = 0x9E -> Matrix sign control for hardware color calculation formulas
             26 : rom_data = 16'h589E;
 
-            // 6. AEC / AGC / AWB : Auto Exposure and White Balance settings
+            // =================================================================
+            // 6. AEC / AGC / AWB (Auto Exposure, Auto Gain, Auto White Balance)
+            // =================================================================
+            // Reg 13 (COM8)  = 0xEF -> Turn ON: Fast AGC, AEC, AWB, and Fast Color Filtering processes
             27 : rom_data = 16'h13EF;
+            // Reg 00 (GAIN)  = 0x00 -> Set initial hardware multiplier gain to baseline 0dB
             28 : rom_data = 16'h0000;
+            // Reg 10 (AECH)  = 0x00 -> Clear exposure value registers to hand control to auto-exposure engine
             29 : rom_data = 16'h1000;
+            // Reg 0D (COM4)  = 0x40 -> Average window speed evaluation parameter for auto-exposure 
             30 : rom_data = 16'h0D40;
-
+            // Reg 14 (COM9)  = 0x38 -> Restrict Automatic Gain Ceiling threshold limit to a max of 4x
             31 : rom_data = 16'h1438;
-
+            // Reg 24 (AEW)   = 0x95 -> Upper limit luminance target threshold for Auto Exposure
             32 : rom_data = 16'h2495;
+            // Reg 25 (AEB)   = 0x33 -> Lower limit luminance target threshold for Auto Exposure
             33 : rom_data = 16'h2533;
+            // Reg 26 (VPT)   = 0xE3 -> Fast AGC/AEC target luminance balance threshold variable
             34 : rom_data = 16'h26E3;
 
-            // 7. Gamma Curve : Adjusts brightness/contrast non-linearly
-            35 : rom_data = 16'h7A20;
-            36 : rom_data = 16'h7B10;
-            37 : rom_data = 16'h7C1E;
-            38 : rom_data = 16'h7D35;
-            39 : rom_data = 16'h7E5A;
-            40 : rom_data = 16'h7F69;
-            41 : rom_data = 16'h8076;
-            42 : rom_data = 16'h8180;
-            43 : rom_data = 16'h8288;
-            44 : rom_data = 16'h838F;
-            45 : rom_data = 16'h8496;
-            46 : rom_data = 16'h85A3;
-            47 : rom_data = 16'h86AF;
-            48 : rom_data = 16'h87C4;
-            49 : rom_data = 16'h88D7;
-            50 : rom_data = 16'h89E8;
+            // =================================================================
+            // 7. Gamma Curve Adjustments (Non-linear Brightness/Contrast mapping)
+            // =================================================================
+            // Reg 7A to 89 act as the 16 slope-points mapping raw sensor luminance 
+            // data curves into clean, standard visual brightness ranges.
+            35 : rom_data = 16'h7A20; // SLOP  - Gamma curve slope point 1
+            36 : rom_data = 16'h7B10; // GAM1  - Gamma curve point 2
+            37 : rom_data = 16'h7C1E; // GAM2  - Gamma curve point 3
+            38 : rom_data = 16'h7D35; // GAM3  - Gamma curve point 4
+            39 : rom_data = 16'h7E5A; // GAM4  - Gamma curve point 5
+            40 : rom_data = 16'h7F69; // GAM5  - Gamma curve point 6
+            41 : rom_data = 16'h8076; // GAM6  - Gamma curve point 7
+            42 : rom_data = 16'h8180; // GAM7  - Gamma curve point 8
+            43 : rom_data = 16'h8288; // GAM8  - Gamma curve point 9
+            44 : rom_data = 16'h838F; // GAM9  - Gamma curve point 10
+            45 : rom_data = 16'h8496; // GAM10 - Gamma curve point 11
+            46 : rom_data = 16'h85A3; // GAM11 - Gamma curve point 12
+            47 : rom_data = 16'h86AF; // GAM12 - Gamma curve point 13
+            48 : rom_data = 16'h87C4; // GAM13 - Gamma curve point 14
+            49 : rom_data = 16'h88D7; // GAM14 - Gamma curve point 15
+            50 : rom_data = 16'h89E8; // GAM15 - Gamma curve point 16
 
-            // 8. DSP & Denoise : Digital processing to clean up the image
+            // =================================================================
+            // 8. DSP & Denoise (Digital Processing Filter Engine)
+            // =================================================================
+            // Reg 41 (COM16) = 0x08 -> Turn ON Edge Enhancement filtering (sharpening)
             51 : rom_data = 16'h4108;
+            // Reg 76 (OV_R45) = 0xE1 -> Active Color Matrix processing and digital denoise engine
             52 : rom_data = 16'h76E1;
+            // Reg 33 (CHLF)  = 0x0B -> Pixel array low-pass color filter channel tuning
             53 : rom_data = 16'h330B;
+            // Reg 3C (COM12) = 0x78 -> Enable internal noise-reduction filtering windows
             54 : rom_data = 16'h3C78;
+            // Reg 69 (GFIX)  = 0x00 -> Fix digital gain metrics to manual zero baseline bounds
             55 : rom_data = 16'h6900;
+            // Reg 74 (REG74) = 0x00 -> Disable digital gain headroom boost (preserves noise clarity)
             56 : rom_data = 16'h7400;
-
+            // Reg B0 (RSVD)  = 0x84 -> Reserved optimization register parameter for lens correction
             57 : rom_data = 16'hB084;
+            // Reg B1 (ABLC1) = 0x00 -> Automatic Black Level Calibration active
             58 : rom_data = 16'hB100;
+            // Reg B2 (RSVD)  = 0x0E -> Reserved optimization bits for color separation thresholds
             59 : rom_data = 16'hB20E;
+            // Reg B3 (THL_ST) = 0x82 -> Target baseline setup for dark frame sensor cleanup
             60 : rom_data = 16'hB382;
 
+            // =================================================================
             // 9. Saturation & Contrast
+            // =================================================================
+            // Reg 67 (MANU)  = 0x80 -> Set manual color saturation initialization index (U-channel)
             61 : rom_data = 16'h6780;
+            // Reg 68 (MANV)  = 0x80 -> Set manual color saturation initialization index (V-channel)
             62 : rom_data = 16'h6880;
+            // Reg 56 (MANC)  = 0x40 -> Fixed manual contrast ratio scaling matrix value
             63 : rom_data = 16'h5640;
 
-            // 10. Frame Stability
+            // =================================================================
+            // 10. Frame Stability & Sync Tuning
+            // =================================================================
+            // Reg 15 (COM10) = 0x00 -> VSYNC edges fall on valid markers, HREF normal polarity bounds
             64 : rom_data = 16'h1500;
+            // Reg 13 (COM8)  = 0xEF -> Re-assert Auto parameters to guarantee clock states haven't lost values
             65 : rom_data = 16'h13EF;
+            // Reg 0E (COM5)  = 0x61 -> Drive strength adjustments optimized for internal register reading stability
             66 : rom_data = 16'h0E61;
+            // Reg 16 (RSVD)  = 0x00 -> Reserved sensor sync baseline initialization tuning
             67 : rom_data = 16'h1600;
+            // Reg 1E (MVFP)  = 0x07 -> Enable physical mirror/flip layout matrix over output image data pixels
             68 : rom_data = 16'h1E07;
 
             // End of configuration marker
