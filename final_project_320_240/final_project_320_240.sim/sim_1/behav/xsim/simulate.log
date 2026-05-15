@@ -1,17 +1,2 @@
 Time resolution is 1 ps
-Block Memory Generator module top_module_tb.uut.fb.inst.native_mem_module.blk_mem_gen_v8_4_12_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
-----------------------------------------------------------------
-RUNNING TEST: 320x240 | Color Mode: 12-bit | Test Pixel: 12'hf84
-----------------------------------------------------------------
-System: XCLK is toggling [PASS]
-VGA Sync: Signals are defined [PASS]
-SCCB Interface: Bus signals are alive [PASS]
-Capture: Check addr for 0, 1 (Line 0) and 320, 321 (Line 2)
-Grayscale: Out=12'h666 | Exp:12'h666 [PASS]
-Red Filter: Out=12'hf00 | Exp:12'hf00 [PASS]
-Green Filter: Out=12'h080 | Exp:12'h080 [PASS]
-Blue Filter: Out=12'h004 | Exp:12'h004 [PASS]
-Inversion: Out=12'h07b | Exp:12'h07b [PASS]
-----------------------------------------------------------------
-Simulation finished at              1100000
-$finish called at time : 1100 ns : File "C:/Users/user/Downloads/project_2/top_module_tb.v" Line 210
+Block Memory Generator module top_module.fb.inst.native_mem_module.blk_mem_gen_v8_4_12_inst is using a behavioral model for simulation which will not precisely model memory collision behavior.
